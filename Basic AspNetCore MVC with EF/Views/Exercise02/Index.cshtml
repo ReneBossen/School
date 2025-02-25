@@ -1,0 +1,25 @@
+﻿@using StartUp_CORE.Models;
+@functions {
+    public void renderPerson(Person p) {
+        <p>Fornavn: @p.FirstName</p>
+        <p>Efternavn: @p.LastName</p>
+        <p>Alder: @p.Age</p>
+        <p>Adresse: @p.Address</p>
+        <p>Zip: @p.Zip</p>
+        <p>City: @p.City</p>
+
+        string phones = "";
+        foreach (string phone in p.GetPhoneNumbers()) {
+            phones = phones == "" ? phones = phone : phones += ", " + phone;
+        }
+        <p>PhoneNumbers: @phones</p>
+    }
+}
+
+
+<h3>Personer</h3>
+@{
+    foreach (Person p in ViewBag.Personer) {
+        renderPerson(p);
+    }
+}

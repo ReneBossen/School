@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="wwwroot\Images\grandcru.jpg" />
+    <None Remove="wwwroot\Images\st_knife.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\desktop.ini" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>

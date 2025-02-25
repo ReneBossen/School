@@ -1,0 +1,57 @@
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.AssemblyInfoInputs.cache
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.AssemblyInfo.cs
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.csproj.CoreCompileInputs.cache
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.RazorAssemblyInfo.cache
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.RazorAssemblyInfo.cs
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\appsettings.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.staticwebassets.runtime.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.exe
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.deps.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.runtimeconfig.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.dll
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\ref\StartUp_CORE.dll
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.pdb
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\scopedcss\bundle\StartUp_CORE.styles.css
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\scopedcss\projectbundle\StartUp_CORE.bundle.scp.css
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.dll
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\ref\StartUp_CORE.dll
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.pdb
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.genruntimeconfig.cache
+C:\Users\klbo\OneDrive - EFIF\DotNet\S23\Session 13\Session 13-startupcode\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.csproj.AssemblyReference.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\appsettings.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.staticwebassets.runtime.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.exe
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.deps.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.runtimeconfig.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.dll
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\bin\Debug\net6.0\StartUp_CORE.pdb
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.csproj.AssemblyReference.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.AssemblyInfoInputs.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.AssemblyInfo.cs
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.csproj.CoreCompileInputs.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.RazorAssemblyInfo.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.RazorAssemblyInfo.cs
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets\msbuild.StartUp_CORE.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets\msbuild.build.StartUp_CORE.props
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.StartUp_CORE.props
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.StartUp_CORE.props
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\scopedcss\bundle\StartUp_CORE.styles.css
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\scopedcss\projectbundle\StartUp_CORE.bundle.scp.css
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.dll
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\refint\StartUp_CORE.dll
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.pdb
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\StartUp_CORE.genruntimeconfig.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\StartUp_CORE\obj\Debug\net6.0\ref\StartUp_CORE.dll
