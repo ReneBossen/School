@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ORMdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="firma">
+    <Key>
+      <PropertyRef Name="firmanr" />
+    </Key>
+    <Property Name="firmanr" Type="Int32" Nullable="false" />
+    <Property Name="firmanavn" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="postnr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="postnummer" Relationship="Self.FK__firma__postnr__4F7CD00D" FromRole="firma" ToRole="postnummer" />
+    <NavigationProperty Name="people" Relationship="Self.ansati" FromRole="firma" ToRole="person" />
+  </EntityType>
+  <EntityType Name="person">
+    <Key>
+      <PropertyRef Name="cpr" />
+    </Key>
+    <Property Name="cpr" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="navn" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="stilling" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="loen" Type="Int32" Nullable="false" />
+    <Property Name="postnr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="postnummer" Relationship="Self.FK__person__postnr__4CA06362" FromRole="person" ToRole="postnummer" />
+    <NavigationProperty Name="firmas" Relationship="Self.ansati" FromRole="person" ToRole="firma" />
+  </EntityType>
+  <EntityType Name="postnummer">
+    <Key>
+      <PropertyRef Name="postnr" />
+    </Key>
+    <Property Name="postnr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="postdistrikt" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="firmas" Relationship="Self.FK__firma__postnr__4F7CD00D" FromRole="postnummer" ToRole="firma" />
+    <NavigationProperty Name="people" Relationship="Self.FK__person__postnr__4CA06362" FromRole="postnummer" ToRole="person" />
+  </EntityType>
+  <Association Name="FK__firma__postnr__4F7CD00D">
+    <End Role="postnummer" Type="Self.postnummer" Multiplicity="1" />
+    <End Role="firma" Type="Self.firma" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="postnummer">
+        <PropertyRef Name="postnr" />
+      </Principal>
+      <Dependent Role="firma">
+        <PropertyRef Name="postnr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__person__postnr__4CA06362">
+    <End Role="postnummer" Type="Self.postnummer" Multiplicity="1" />
+    <End Role="person" Type="Self.person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="postnummer">
+        <PropertyRef Name="postnr" />
+      </Principal>
+      <Dependent Role="person">
+        <PropertyRef Name="postnr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ansati">
+    <End Role="person" Type="Self.person" Multiplicity="*" />
+    <End Role="firma" Type="Self.firma" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="ORMdbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="firmas" EntityType="Self.firma" />
+    <EntitySet Name="people" EntityType="Self.person" />
+    <EntitySet Name="postnummers" EntityType="Self.postnummer" />
+    <AssociationSet Name="FK__firma__postnr__4F7CD00D" Association="Self.FK__firma__postnr__4F7CD00D">
+      <End Role="postnummer" EntitySet="postnummers" />
+      <End Role="firma" EntitySet="firmas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__person__postnr__4CA06362" Association="Self.FK__person__postnr__4CA06362">
+      <End Role="postnummer" EntitySet="postnummers" />
+      <End Role="person" EntitySet="people" />
+    </AssociationSet>
+    <AssociationSet Name="ansati" Association="Self.ansati">
+      <End Role="person" EntitySet="people" />
+      <End Role="firma" EntitySet="firmas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

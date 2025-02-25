@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ORMdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ansati">
+          <Key>
+            <PropertyRef Name="cpr" />
+            <PropertyRef Name="firmanr" />
+          </Key>
+          <Property Name="cpr" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="firmanr" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="firma">
+          <Key>
+            <PropertyRef Name="firmanr" />
+          </Key>
+          <Property Name="firmanr" Type="int" Nullable="false" />
+          <Property Name="firmanavn" Type="varchar" MaxLength="25" />
+          <Property Name="postnr" Type="char" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="cpr" />
+          </Key>
+          <Property Name="cpr" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="25" />
+          <Property Name="stilling" Type="varchar" MaxLength="25" />
+          <Property Name="loen" Type="int" Nullable="false" />
+          <Property Name="postnr" Type="char" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="postnummer">
+          <Key>
+            <PropertyRef Name="postnr" />
+          </Key>
+          <Property Name="postnr" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="postdistrikt" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <Association Name="cprforeign">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="ansati" Type="Self.ansati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="cpr" />
+            </Principal>
+            <Dependent Role="ansati">
+              <PropertyRef Name="cpr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="firmaforeign">
+          <End Role="firma" Type="Self.firma" Multiplicity="1" />
+          <End Role="ansati" Type="Self.ansati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="firma">
+              <PropertyRef Name="firmanr" />
+            </Principal>
+            <Dependent Role="ansati">
+              <PropertyRef Name="firmanr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__firma__postnr__4F7CD00D">
+          <End Role="postnummer" Type="Self.postnummer" Multiplicity="1" />
+          <End Role="firma" Type="Self.firma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postnummer">
+              <PropertyRef Name="postnr" />
+            </Principal>
+            <Dependent Role="firma">
+              <PropertyRef Name="postnr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person__postnr__4CA06362">
+          <End Role="postnummer" Type="Self.postnummer" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postnummer">
+              <PropertyRef Name="postnr" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="postnr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ORMdbModelStoreContainer">
+          <EntitySet Name="ansati" EntityType="Self.ansati" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="firma" EntityType="Self.firma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postnummer" EntityType="Self.postnummer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="cprforeign" Association="Self.cprforeign">
+            <End Role="person" EntitySet="person" />
+            <End Role="ansati" EntitySet="ansati" />
+          </AssociationSet>
+          <AssociationSet Name="firmaforeign" Association="Self.firmaforeign">
+            <End Role="firma" EntitySet="firma" />
+            <End Role="ansati" EntitySet="ansati" />
+          </AssociationSet>
+          <AssociationSet Name="FK__firma__postnr__4F7CD00D" Association="Self.FK__firma__postnr__4F7CD00D">
+            <End Role="postnummer" EntitySet="postnummer" />
+            <End Role="firma" EntitySet="firma" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person__postnr__4CA06362" Association="Self.FK__person__postnr__4CA06362">
+            <End Role="postnummer" EntitySet="postnummer" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ORMdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="firma">
+          <Key>
+            <PropertyRef Name="firmanr" />
+          </Key>
+          <Property Name="firmanr" Type="Int32" Nullable="false" />
+          <Property Name="firmanavn" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="postnr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="postnummer" Relationship="Self.FK__firma__postnr__4F7CD00D" FromRole="firma" ToRole="postnummer" />
+          <NavigationProperty Name="people" Relationship="Self.ansati" FromRole="firma" ToRole="person" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="cpr" />
+          </Key>
+          <Property Name="cpr" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="navn" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="stilling" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="loen" Type="Int32" Nullable="false" />
+          <Property Name="postnr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="postnummer" Relationship="Self.FK__person__postnr__4CA06362" FromRole="person" ToRole="postnummer" />
+          <NavigationProperty Name="firmas" Relationship="Self.ansati" FromRole="person" ToRole="firma" />
+        </EntityType>
+        <EntityType Name="postnummer">
+          <Key>
+            <PropertyRef Name="postnr" />
+          </Key>
+          <Property Name="postnr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="postdistrikt" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="firmas" Relationship="Self.FK__firma__postnr__4F7CD00D" FromRole="postnummer" ToRole="firma" />
+          <NavigationProperty Name="people" Relationship="Self.FK__person__postnr__4CA06362" FromRole="postnummer" ToRole="person" />
+        </EntityType>
+        <Association Name="FK__firma__postnr__4F7CD00D">
+          <End Role="postnummer" Type="Self.postnummer" Multiplicity="1" />
+          <End Role="firma" Type="Self.firma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postnummer">
+              <PropertyRef Name="postnr" />
+            </Principal>
+            <Dependent Role="firma">
+              <PropertyRef Name="postnr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person__postnr__4CA06362">
+          <End Role="postnummer" Type="Self.postnummer" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="postnummer">
+              <PropertyRef Name="postnr" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="postnr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ansati">
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <End Role="firma" Type="Self.firma" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ORMdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="firmas" EntityType="Self.firma" />
+          <EntitySet Name="people" EntityType="Self.person" />
+          <EntitySet Name="postnummers" EntityType="Self.postnummer" />
+          <AssociationSet Name="FK__firma__postnr__4F7CD00D" Association="Self.FK__firma__postnr__4F7CD00D">
+            <End Role="postnummer" EntitySet="postnummers" />
+            <End Role="firma" EntitySet="firmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person__postnr__4CA06362" Association="Self.FK__person__postnr__4CA06362">
+            <End Role="postnummer" EntitySet="postnummers" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+          <AssociationSet Name="ansati" Association="Self.ansati">
+            <End Role="person" EntitySet="people" />
+            <End Role="firma" EntitySet="firmas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ORMdbModelStoreContainer" CdmEntityContainer="ORMdbEntities">
+          <EntitySetMapping Name="firmas">
+            <EntityTypeMapping TypeName="ORMdbModel.firma">
+              <MappingFragment StoreEntitySet="firma">
+                <ScalarProperty Name="firmanr" ColumnName="firmanr" />
+                <ScalarProperty Name="firmanavn" ColumnName="firmanavn" />
+                <ScalarProperty Name="postnr" ColumnName="postnr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="ORMdbModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="cpr" ColumnName="cpr" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="stilling" ColumnName="stilling" />
+                <ScalarProperty Name="loen" ColumnName="loen" />
+                <ScalarProperty Name="postnr" ColumnName="postnr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postnummers">
+            <EntityTypeMapping TypeName="ORMdbModel.postnummer">
+              <MappingFragment StoreEntitySet="postnummer">
+                <ScalarProperty Name="postnr" ColumnName="postnr" />
+                <ScalarProperty Name="postdistrikt" ColumnName="postdistrikt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ansati" TypeName="ORMdbModel.ansati" StoreEntitySet="ansati">
+            <EndProperty Name="person">
+              <ScalarProperty Name="cpr" ColumnName="cpr" />
+            </EndProperty>
+            <EndProperty Name="firma">
+              <ScalarProperty Name="firmanr" ColumnName="firmanr" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

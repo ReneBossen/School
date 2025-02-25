@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ORMdbModelStoreContainer" CdmEntityContainer="ORMdbEntities">
+    <EntitySetMapping Name="firmas">
+      <EntityTypeMapping TypeName="ORMdbModel.firma">
+        <MappingFragment StoreEntitySet="firma">
+          <ScalarProperty Name="firmanr" ColumnName="firmanr" />
+          <ScalarProperty Name="firmanavn" ColumnName="firmanavn" />
+          <ScalarProperty Name="postnr" ColumnName="postnr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="people">
+      <EntityTypeMapping TypeName="ORMdbModel.person">
+        <MappingFragment StoreEntitySet="person">
+          <ScalarProperty Name="cpr" ColumnName="cpr" />
+          <ScalarProperty Name="navn" ColumnName="navn" />
+          <ScalarProperty Name="stilling" ColumnName="stilling" />
+          <ScalarProperty Name="loen" ColumnName="loen" />
+          <ScalarProperty Name="postnr" ColumnName="postnr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="postnummers">
+      <EntityTypeMapping TypeName="ORMdbModel.postnummer">
+        <MappingFragment StoreEntitySet="postnummer">
+          <ScalarProperty Name="postnr" ColumnName="postnr" />
+          <ScalarProperty Name="postdistrikt" ColumnName="postdistrikt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ansati" TypeName="ORMdbModel.ansati" StoreEntitySet="ansati">
+      <EndProperty Name="person">
+        <ScalarProperty Name="cpr" ColumnName="cpr" />
+      </EndProperty>
+      <EndProperty Name="firma">
+        <ScalarProperty Name="firmanr" ColumnName="firmanr" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
