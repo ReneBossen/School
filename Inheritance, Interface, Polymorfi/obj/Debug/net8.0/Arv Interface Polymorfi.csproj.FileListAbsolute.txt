@@ -1,0 +1,14 @@
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\bin\Debug\net8.0\Arv Interface Polymorfi.exe
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\bin\Debug\net8.0\Arv Interface Polymorfi.deps.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\bin\Debug\net8.0\Arv Interface Polymorfi.runtimeconfig.json
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\bin\Debug\net8.0\Arv Interface Polymorfi.dll
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\bin\Debug\net8.0\Arv Interface Polymorfi.pdb
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.AssemblyInfoInputs.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.AssemblyInfo.cs
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.csproj.CoreCompileInputs.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.dll
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\refint\Arv Interface Polymorfi.dll
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.pdb
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\Arv Interface Polymorfi.genruntimeconfig.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\Arv Interface Polymorfi\obj\Debug\net8.0\ref\Arv Interface Polymorfi.dll
