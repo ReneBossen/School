@@ -1,0 +1,7 @@
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\bin\Debug\EksamensopgaveDBRene.exe.config
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\bin\Debug\EksamensopgaveDBRene.exe
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\bin\Debug\EksamensopgaveDBRene.pdb
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\obj\Debug\EksamensopgaveDBRene.csproj.AssemblyReference.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\obj\Debug\EksamensopgaveDBRene.csproj.CoreCompileInputs.cache
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\obj\Debug\EksamensopgaveDBRene.exe
+C:\Users\rene_\OneDrive\Datamatiker\4. semester\C# og .NET\EksamensopgaveDBRene\EksamensopgaveDBRene\obj\Debug\EksamensopgaveDBRene.pdb

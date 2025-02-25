@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EksamensopgaveDBRene", "EksamensopgaveDBRene\EksamensopgaveDBRene.csproj", "{D27CAF09-4294-477E-9FAB-11E9E4EE3760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opgave7EF", "Opgave7EF\Opgave7EF.csproj", "{98409921-65EC-42C2-A704-4650872CF926}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D27CAF09-4294-477E-9FAB-11E9E4EE3760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D27CAF09-4294-477E-9FAB-11E9E4EE3760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D27CAF09-4294-477E-9FAB-11E9E4EE3760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D27CAF09-4294-477E-9FAB-11E9E4EE3760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98409921-65EC-42C2-A704-4650872CF926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98409921-65EC-42C2-A704-4650872CF926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98409921-65EC-42C2-A704-4650872CF926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98409921-65EC-42C2-A704-4650872CF926}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E90F5866-0940-412F-A027-D0774D4877C2}
+	EndGlobalSection
+EndGlobal

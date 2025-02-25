@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EksamensopgaveDBReneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dato" Type="date" Nullable="false" />
+          <Property Name="forsikring" Type="bit" Nullable="false" />
+          <Property Name="lejerId" Type="int" />
+          <Property Name="virksomhedsId" Type="int" />
+        </EntityType>
+        <EntityType Name="Bookudstyr">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="antal" Type="int" Nullable="false" />
+          <Property Name="bookingId" Type="int" />
+          <Property Name="udstyrId" Type="int" />
+        </EntityType>
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lejer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresse" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="postnummer" Type="char" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Udstyr">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="beskrivelse" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="dagspris" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="forsikringspris" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="antal" Type="int" Nullable="false" />
+          <Property Name="virksomhedsId" Type="int" />
+          <Property Name="kategoriId" Type="int" />
+        </EntityType>
+        <EntityType Name="Virksomhed">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="navn" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresse" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="postnummer" Type="char" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Booking__lejerId__38EE7070">
+          <End Role="Lejer" Type="Self.Lejer" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lejer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="lejerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__virksom__39E294A9">
+          <End Role="Virksomhed" Type="Self.Virksomhed" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Virksomhed">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="virksomhedsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookudsty__booki__3CBF0154">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="Bookudstyr" Type="Self.Bookudstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookudstyr">
+              <PropertyRef Name="bookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookudsty__udsty__3DB3258D">
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="0..1" />
+          <End Role="Bookudstyr" Type="Self.Bookudstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Udstyr">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookudstyr">
+              <PropertyRef Name="udstyrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Udstyr__kategori__361203C5">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Udstyr">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Udstyr__virksomh__351DDF8C">
+          <End Role="Virksomhed" Type="Self.Virksomhed" Multiplicity="0..1" />
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Virksomhed">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Udstyr">
+              <PropertyRef Name="virksomhedsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EksamensopgaveDBReneModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookudstyr" EntityType="Self.Bookudstyr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lejer" EntityType="Self.Lejer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Udstyr" EntityType="Self.Udstyr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Virksomhed" EntityType="Self.Virksomhed" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Booking__lejerId__38EE7070" Association="Self.FK__Booking__lejerId__38EE7070">
+            <End Role="Lejer" EntitySet="Lejer" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__virksom__39E294A9" Association="Self.FK__Booking__virksom__39E294A9">
+            <End Role="Virksomhed" EntitySet="Virksomhed" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookudsty__booki__3CBF0154" Association="Self.FK__Bookudsty__booki__3CBF0154">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Bookudstyr" EntitySet="Bookudstyr" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookudsty__udsty__3DB3258D" Association="Self.FK__Bookudsty__udsty__3DB3258D">
+            <End Role="Udstyr" EntitySet="Udstyr" />
+            <End Role="Bookudstyr" EntitySet="Bookudstyr" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Udstyr__kategori__361203C5" Association="Self.FK__Udstyr__kategori__361203C5">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Udstyr" EntitySet="Udstyr" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Udstyr__virksomh__351DDF8C" Association="Self.FK__Udstyr__virksomh__351DDF8C">
+            <End Role="Virksomhed" EntitySet="Virksomhed" />
+            <End Role="Udstyr" EntitySet="Udstyr" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EksamensopgaveDBReneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dato" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="forsikring" Type="Boolean" Nullable="false" />
+          <Property Name="lejerId" Type="Int32" />
+          <Property Name="virksomhedsId" Type="Int32" />
+          <NavigationProperty Name="Lejer" Relationship="Self.FK__Booking__lejerId__38EE7070" FromRole="Booking" ToRole="Lejer" />
+          <NavigationProperty Name="Virksomhed" Relationship="Self.FK__Booking__virksom__39E294A9" FromRole="Booking" ToRole="Virksomhed" />
+          <NavigationProperty Name="Bookudstyrs" Relationship="Self.FK__Bookudsty__booki__3CBF0154" FromRole="Booking" ToRole="Bookudstyr" />
+        </EntityType>
+        <EntityType Name="Bookudstyr">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="antal" Type="Int32" Nullable="false" />
+          <Property Name="bookingId" Type="Int32" />
+          <Property Name="udstyrId" Type="Int32" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK__Bookudsty__booki__3CBF0154" FromRole="Bookudstyr" ToRole="Booking" />
+          <NavigationProperty Name="Udstyr" Relationship="Self.FK__Bookudsty__udsty__3DB3258D" FromRole="Bookudstyr" ToRole="Udstyr" />
+        </EntityType>
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="navn" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Udstyrs" Relationship="Self.FK__Udstyr__kategori__361203C5" FromRole="Kategori" ToRole="Udstyr" />
+        </EntityType>
+        <EntityType Name="Lejer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="navn" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postnummer" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__lejerId__38EE7070" FromRole="Lejer" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Udstyr">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="navn" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="beskrivelse" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dagspris" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="forsikringspris" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="antal" Type="Int32" Nullable="false" />
+          <Property Name="virksomhedsId" Type="Int32" />
+          <Property Name="kategoriId" Type="Int32" />
+          <NavigationProperty Name="Bookudstyrs" Relationship="Self.FK__Bookudsty__udsty__3DB3258D" FromRole="Udstyr" ToRole="Bookudstyr" />
+          <NavigationProperty Name="Kategori" Relationship="Self.FK__Udstyr__kategori__361203C5" FromRole="Udstyr" ToRole="Kategori" />
+          <NavigationProperty Name="Virksomhed" Relationship="Self.FK__Udstyr__virksomh__351DDF8C" FromRole="Udstyr" ToRole="Virksomhed" />
+        </EntityType>
+        <EntityType Name="Virksomhed">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="navn" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postnummer" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__virksom__39E294A9" FromRole="Virksomhed" ToRole="Booking" />
+          <NavigationProperty Name="Udstyrs" Relationship="Self.FK__Udstyr__virksomh__351DDF8C" FromRole="Virksomhed" ToRole="Udstyr" />
+        </EntityType>
+        <Association Name="FK__Booking__lejerId__38EE7070">
+          <End Role="Lejer" Type="Self.Lejer" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lejer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="lejerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__virksom__39E294A9">
+          <End Role="Virksomhed" Type="Self.Virksomhed" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Virksomhed">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="virksomhedsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookudsty__booki__3CBF0154">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="Bookudstyr" Type="Self.Bookudstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookudstyr">
+              <PropertyRef Name="bookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookudsty__udsty__3DB3258D">
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="0..1" />
+          <End Role="Bookudstyr" Type="Self.Bookudstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Udstyr">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookudstyr">
+              <PropertyRef Name="udstyrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Udstyr__kategori__361203C5">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Udstyr">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Udstyr__virksomh__351DDF8C">
+          <End Role="Virksomhed" Type="Self.Virksomhed" Multiplicity="0..1" />
+          <End Role="Udstyr" Type="Self.Udstyr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Virksomhed">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Udstyr">
+              <PropertyRef Name="virksomhedsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EksamensopgaveDBReneEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="Bookudstyrs" EntityType="Self.Bookudstyr" />
+          <EntitySet Name="Kategoris" EntityType="Self.Kategori" />
+          <EntitySet Name="Lejers" EntityType="Self.Lejer" />
+          <EntitySet Name="Udstyrs" EntityType="Self.Udstyr" />
+          <EntitySet Name="Virksomheds" EntityType="Self.Virksomhed" />
+          <AssociationSet Name="FK__Booking__lejerId__38EE7070" Association="Self.FK__Booking__lejerId__38EE7070">
+            <End Role="Lejer" EntitySet="Lejers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__virksom__39E294A9" Association="Self.FK__Booking__virksom__39E294A9">
+            <End Role="Virksomhed" EntitySet="Virksomheds" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookudsty__booki__3CBF0154" Association="Self.FK__Bookudsty__booki__3CBF0154">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Bookudstyr" EntitySet="Bookudstyrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookudsty__udsty__3DB3258D" Association="Self.FK__Bookudsty__udsty__3DB3258D">
+            <End Role="Udstyr" EntitySet="Udstyrs" />
+            <End Role="Bookudstyr" EntitySet="Bookudstyrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Udstyr__kategori__361203C5" Association="Self.FK__Udstyr__kategori__361203C5">
+            <End Role="Kategori" EntitySet="Kategoris" />
+            <End Role="Udstyr" EntitySet="Udstyrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Udstyr__virksomh__351DDF8C" Association="Self.FK__Udstyr__virksomh__351DDF8C">
+            <End Role="Virksomhed" EntitySet="Virksomheds" />
+            <End Role="Udstyr" EntitySet="Udstyrs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EksamensopgaveDBReneModelStoreContainer" CdmEntityContainer="EksamensopgaveDBReneEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dato" ColumnName="dato" />
+                <ScalarProperty Name="forsikring" ColumnName="forsikring" />
+                <ScalarProperty Name="lejerId" ColumnName="lejerId" />
+                <ScalarProperty Name="virksomhedsId" ColumnName="virksomhedsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookudstyrs">
+            <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Bookudstyr">
+              <MappingFragment StoreEntitySet="Bookudstyr">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="antal" ColumnName="antal" />
+                <ScalarProperty Name="bookingId" ColumnName="bookingId" />
+                <ScalarProperty Name="udstyrId" ColumnName="udstyrId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoris">
+            <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Kategori">
+              <MappingFragment StoreEntitySet="Kategori">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lejers">
+            <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Lejer">
+              <MappingFragment StoreEntitySet="Lejer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="postnummer" ColumnName="postnummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Udstyrs">
+            <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Udstyr">
+              <MappingFragment StoreEntitySet="Udstyr">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="beskrivelse" ColumnName="beskrivelse" />
+                <ScalarProperty Name="dagspris" ColumnName="dagspris" />
+                <ScalarProperty Name="forsikringspris" ColumnName="forsikringspris" />
+                <ScalarProperty Name="antal" ColumnName="antal" />
+                <ScalarProperty Name="virksomhedsId" ColumnName="virksomhedsId" />
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Virksomheds">
+            <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Virksomhed">
+              <MappingFragment StoreEntitySet="Virksomhed">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="navn" ColumnName="navn" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="postnummer" ColumnName="postnummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EksamensopgaveDBReneModelStoreContainer" CdmEntityContainer="EksamensopgaveDBReneEntities">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="dato" ColumnName="dato" />
+          <ScalarProperty Name="forsikring" ColumnName="forsikring" />
+          <ScalarProperty Name="lejerId" ColumnName="lejerId" />
+          <ScalarProperty Name="virksomhedsId" ColumnName="virksomhedsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookudstyrs">
+      <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Bookudstyr">
+        <MappingFragment StoreEntitySet="Bookudstyr">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="antal" ColumnName="antal" />
+          <ScalarProperty Name="bookingId" ColumnName="bookingId" />
+          <ScalarProperty Name="udstyrId" ColumnName="udstyrId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategoris">
+      <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Kategori">
+        <MappingFragment StoreEntitySet="Kategori">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="navn" ColumnName="navn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lejers">
+      <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Lejer">
+        <MappingFragment StoreEntitySet="Lejer">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="navn" ColumnName="navn" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="postnummer" ColumnName="postnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Udstyrs">
+      <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Udstyr">
+        <MappingFragment StoreEntitySet="Udstyr">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="navn" ColumnName="navn" />
+          <ScalarProperty Name="beskrivelse" ColumnName="beskrivelse" />
+          <ScalarProperty Name="dagspris" ColumnName="dagspris" />
+          <ScalarProperty Name="forsikringspris" ColumnName="forsikringspris" />
+          <ScalarProperty Name="antal" ColumnName="antal" />
+          <ScalarProperty Name="virksomhedsId" ColumnName="virksomhedsId" />
+          <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Virksomheds">
+      <EntityTypeMapping TypeName="EksamensopgaveDBReneModel.Virksomhed">
+        <MappingFragment StoreEntitySet="Virksomhed">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="navn" ColumnName="navn" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="postnummer" ColumnName="postnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
