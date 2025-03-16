@@ -6,12 +6,12 @@ import { dateFormatter } from "../Controller/DateFormatter.mjs";
 
 //Firebase setup
 const firebaseConfig = {
-    apiKey: "AIzaSyC9KirPvKyPM9qkgTs4P7ALQR-uNcOQDng",
-    authDomain: "dmu-3-sem-projekt.firebaseapp.com",
-    projectId: "dmu-3-sem-projekt",
-    storageBucket: "dmu-3-sem-projekt.appspot.com",
-    messagingSenderId: "325592239344",
-    appId: "1:325592239344:web:79b3b6eaf8cf2726710635"
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
 
 //Initialize Firebase
