@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kvittering</title>
+    <script type="module" src="/Model/Controller/Kvittering.mjs"></script>
+    <script>function printPage() {
+            document.querySelector("#printBtn").style = "display:none;";
+            window.print();
+            document.querySelector("#printBtn").style = "display:inline-block;";
+        }</script>
+    <link rel="stylesheet" href="BookingConfirmation.css">
+</head>
+
+<body>
+    <div id="titleContainer"></div>
+    <h1> Tak for din booking!</h1>
+    <p>
+        Din booking er sendt til Basement, og du vil få en bekræftelse på mail.
+    </p>
+    </div>
+
+
+    </h1>
+    <div id="infoContainer">
+        <p class="title">Navn: </p>
+        <p class="infotext" id="navn"></p><br>
+        <p class="title">Telefonnr: </p>
+        <p class="infotext" id="telefonnr"></p><br>
+        <p class="title">Email: </p>
+        <p class="infotext" id="email"></p><br>
+        <p class="title">Uddannelse: </p>
+        <p class="infotext" id="uddannelse"></p><br>
+        <p class="title">Holdnr: </p>
+        <p class="infotext" id="holdnr"></p><br>
+        <p class="title">Starttidspunkt: </p>
+        <p class="infotext" id="starttidspunkt"></p><br>
+        <p class="title">Sluttidspunkt: </p>
+        <p class="infotext" id="sluttidspunkt"></p><br>
+        <p class="title">Antal gæster: </p>
+        <p class="infotext" id="antalGaester"></p><br>
+        <p class="title">Beskrivelse af arrangement: </p><br>
+        <p class="infotext" id="beskrivelse"></p><br>
+        <p class="title">Specielle ønsker: </p><br>
+        <p class="infotext" id="specielleOensker"></p><br>
+        <p class="title">Diverse: </p><br>
+        <p class="infotext" id="diverse"></p><br>
+    </div>
+    <div id="btnContainer">
+        <input type="button" id="printBtn" value="Print kvittering" onclick="printPage()" />
+    </div>
+
+</body>
+
+
+</html>

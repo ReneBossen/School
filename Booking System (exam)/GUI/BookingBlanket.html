@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Blanket</title>
+    <script type="module" src="/Model/Controller/Booking.mjs"></script>
+    <script type="module" src="/Model/Controller/BookingAccept.mjs"></script>
+    <link rel="stylesheet" href="BookingBlanket.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Big Shoulders Inline Text">
+</head>
+
+<body>
+
+    <div class="overallinfo-container">
+        <div class="reglement-container">
+            <a style="color: yellow; font-size: 1.3rem;" href="TermsAndServices.html" target=”_blank”>Reglement</a>
+            <br>
+            <div id="checkbox-container">
+                <p style="display: inline-block;" id="reglement-text">Jeg har
+                    læst og accepteret reglementet</p>
+                <label class="reglement" for="reglement">
+                    <input type="checkbox" id="reglement" name="ReglementCheckbox" value="Accepteret">
+                    <span class="checkbox"></span>
+                </label>
+            </div>
+        </div>
+
+
+        <div class="overskrift-container">
+            <h1 class="overskrift" for="overskrift">Booking Blanket</h1>
+        </div>
+
+        <div class="button-container">
+            <button class="button" type="button" id="AcceptButton">Bekræft</button>
+        </div>
+        </form>
+
+
+        <div class="kontaktoverskrift">
+            <label class="kontaktinfo" for="kontaktinfo">Kontakt information</label>
+        </div>
+
+        <div class="førstedel">
+            <form class="personinfo">
+                <span>
+                    <label class="fornavn" for="fornavn">Fornavn:</label>
+                    <br>
+                    <input type="text" id="fornavn" name="fornavn">
+                </span>
+
+                <br>
+                <span>
+                    <label class="efternavn" for="efternavn">Efternavn:</label>
+                    <br>
+                    <input type="text" id="efternavn" name="efternavn">
+                </span>
+
+                <br>
+                <span>
+                    <label class="tlfnr" for="tlfnr">Telefonnr:</label>
+                    <br>
+                    <input type="tel" id="tlfnr" name="tlfnr" pattern="[0-9]{8}">
+                </span>
+        </div>
+
+        <div class="andendel">
+            <span>
+                <label class="email" for="email">Email:</label>
+                <br>
+                <input type="email" id="email" name="email">
+            </span>
+
+            <br>
+            <span>
+                <label class="uddannelse" for="uddannelse">Uddannelse:</label>
+                <br>
+                <input type="text" id="uddannelse" name="uddannelse">
+            </span>
+
+            <br>
+            <span>
+                <label class="holdnr" for="holdnr">Holdnr:</label>
+                <br>
+                <input type="text" id="holdnr" name="holdnr">
+            </span>
+            </form>
+        </div>
+
+
+        <div class="festinfo-container">
+            <form class="festinfo">
+                <span>
+                    <span>
+                        <label class="antal" for="antal">Antal gæster:</label>
+                        <input type="number" id="antal" name="antal" min="1" max="100">
+                    </span>
+                    <br>
+                    <label class="starttidspunkt" for="starttidspunkt">Starttidspunkt:</label>
+                    <input type="time" id="starttidspunkt" name="starttidspunkt">
+
+                    <span>
+                        <label class="sluttidspunkt" for="sluttidspunkt">Sluttidspunkt:</label>
+                        <input type="time" id="sluttidspunkt" name="sluttidspunkt">
+                    </span>
+
+
+            </form>
+
+            <form class="beskrivelserfest">
+                <br>
+                <span class="festbeskrivelse">
+                    <label class="labelbeskrivelse" for="beskrivelse">Beskriv arrangementet:</label>
+                    <br>
+                    <textarea id="beskrivelse" name="beskrivelse" class="beskrivelse"
+                        placeholder="F.eks. fødselsdag, julefrokost osv." maxlength="300"></textarea>
+                </span>
+
+                <br>
+                <span class="specielleønskerbeskrivelse">
+                    <label class="labelønsker" for="ønsker">Specielle ønsker:</label>
+                    <br>
+                    <textarea id="ønsker" name="ønsker" class="ønsker"
+                        placeholder="Bordopstilling, musik, bar sortiment osv." maxlength="300"></textarea>
+                </span>
+
+                <br>
+                <span class="diversebeskrivelse">
+                    <label class="labeldiverse" for="diverse">Diverse:</label>
+                    <br>
+                    <textarea id="diverse" name="diverse" class="diverse" placeholder="Spørgsmål"
+                        maxlength="300"></textarea>
+                </span>
+            </form>
+        </div>
+    </div>
+
+</html>

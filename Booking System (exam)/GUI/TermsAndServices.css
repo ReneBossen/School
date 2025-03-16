@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+}
+
+.regler {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 3;
+    font-family: Big Shoulders Text, Arial;
+    font-size: 1.2rem;
+    text-align: left;
+    color: black;
+}
+
+.overskrift {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 3;
+    font-family: Big Shoulders Text, Arial;
+    text-align: center;
+    margin: 0px;
+}

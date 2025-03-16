@@ -1,0 +1,393 @@
+:root {
+  --default-font: Big Shoulders Text, Arial;
+}
+
+body {
+  background-image: url('Basement_logo.png');
+  background-size: 15rem 10rem;
+  background-position: 99% 1%;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  background-color: #0C002E;
+}
+
+.overallinfo-container {
+  display: grid;
+  grid-template-columns: 50vw 50vw;
+  grid-template-rows: auto auto auto;
+}
+
+input[type="text"] {
+  /* Text felter - navne, holdnr og uddannelse */
+  width: 12.5rem;
+  padding: 0.31rem;
+  margin-bottom: 3rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input[type="tel"] {
+  /* Tlf boks */
+  width: 12.5rem;
+  padding: 0.31rem;
+  margin-bottom: 3rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input[type="email"] {
+  /* Email boks */
+  width: 12.5rem;
+  padding: 0.31rem;
+  margin-bottom: 3rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input[type="number"] {
+  /* Antal boks*/
+  width: 4.4rem;
+  padding: 0.31rem;
+  margin-bottom: 1.2rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  margin-left: 0.8rem;
+  font-size: 1rem;
+}
+
+input[type="time"] {
+  /* Start og sluttidspunkt boks */
+  border-radius: 8px;
+  width: 5.2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.overskrift {
+  /* Den store overskrift */
+  background: -webkit-linear-gradient(#BF3C8E, #754B9C, #4B58A6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-size: 3.5rem;
+  font-family: var(--default-font);
+  font-weight: normal;
+}
+
+h1 {
+  margin-top: 0.5rem;
+}
+
+.overskrift-container {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+  text-align: center;
+}
+
+.kontaktoverskrift {
+  color: white;
+  font-size: 2rem;
+  font-family: var(--default-font);
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: center;
+}
+
+.førstedel {
+  color: white;
+  font-size: 1rem;
+  font-family: var(--default-font);
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  justify-self: start;
+  align-self: center;
+  margin-left: 4rem;
+  margin-bottom: 7rem;
+}
+
+.andendel {
+  color: white;
+  font-size: 1rem;
+  font-family: var(--default-font);
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  justify-self: end;
+  align-self: center;
+  margin-right: 4rem;
+  margin-bottom: 7rem;
+}
+
+.reglement-container {
+  grid-column: 2;
+  grid-row: 3;
+  text-align: left;
+  align-self: end;
+  font-family: var(--default-font);
+  color: white;
+  font-size: 1.3rem;
+  margin-top: -2rem;
+  margin-left: 4rem;
+}
+
+.fest-container {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  text-align: right;
+}
+
+::placeholder {
+  font-family: var(--default-font);
+  font-size: 1rem;
+}
+
+.fornavn {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.efternavn {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.uddannelse {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.holdnr {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.tlfnr {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.antal {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  margin-left: 3rem;
+  font-family: var(--default-font);
+}
+
+.email {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.starttidspunkt {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+  font-family: var(--default-font);
+}
+
+.sluttidspunkt {
+  /* Label */
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-family: var(--default-font);
+}
+
+.beskrivelse {
+  /* Text area */
+  width: 31.3rem;
+  height: 5.7rem;
+  padding: 0.31rem;
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+  vertical-align: top;
+  resize: none;
+  text-align: top;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.labelbeskrivelse {
+  /* Label */
+  color: white;
+  margin-left: 3rem;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.labeldiverse {
+  /* Label */
+  color: white;
+  margin-left: 3rem;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.diverse {
+  /* Diverse text area */
+  width: 31.3rem;
+  height: 5.7rem;
+  padding: 0.31rem;
+  margin-left: 3rem;
+  vertical-align: top;
+  resize: none;
+  text-align: top;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.labelønsker {
+  color: white;
+  margin-left: 3rem;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+}
+
+.ønsker {
+  width: 31.3rem;
+  height: 5.7rem;
+  padding: 0.31rem;
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+  vertical-align: top;
+  resize: none;
+  text-align: top;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.button-container {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: right;
+  justify-self: right;
+  margin-right: 5rem;
+  margin-top: -0.8rem;
+}
+
+.button {
+  height: 3.5rem;
+  width: 10rem;
+  font-size: 1.3rem;
+  font-family: var(--default-font);
+  color: white;
+  background-color: #7B4696;
+  border: 1px black;
+  border-radius: 12px;
+  background-image: linear-gradient(to right, #BF3C8E 0%, #4B58A6 51%, #754B9C 100%);
+  transition: 0.5s;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px #AA4296;
+}
+
+.button:hover {
+  /* Bekræft knappen */
+  background-position: right center;
+  color: white;
+  text-decoration: none;
+}
+
+.button:active {
+  /* Bekræft knappen */
+  transform: scale(0.95);
+  box-shadow: 3px 2px 22px 1px #0C002E;
+}
+
+label span {
+  margin-right: 1rem;
+}
+
+#checkbox-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#reglement-text {
+  margin-right: 1rem;
+}
+
+/* Customize the label (the container) */
+.reglement {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.reglement input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  background-color: white;
+  margin-top: 1.2rem;
+  border-radius: 8px;
+}
+
+/* On mouse-over, add a grey background color */
+.reglement:hover input~.checkbox {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.reglement input:checked~.checkbox {
+  background-color: #754B9C;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.reglement input:checked~.checkbox:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.reglement .checkbox:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  border-radius: 8px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

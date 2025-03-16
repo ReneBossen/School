@@ -1,0 +1,924 @@
+doctype html
+html(lang="en")
+    head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title Administrator
+
+      //- Bootstrap for calendar theming
+      link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css", rel="stylesheet")
+      link(href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css", rel="stylesheet")
+      link(href="https://fonts.googleapis.com/css?family=Big Shoulders Text", rel="stylesheet")
+
+      //- Login script
+      script.
+        let pass = "admin";
+        let input;
+        do {
+            input = prompt("Angiv password"); 
+        }
+        while(input!=pass);
+      
+      
+      //- Calendar import
+      script(src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js', defer).
+
+      //- Calendar specific script
+      script.
+          let data = (`!{bookings}`);
+          let tempdata = data.split("&,");
+          let tempAttributesArray = [];
+
+          let tempBookingDate;
+          let tempBookingName;
+          let blockDate;
+
+          let calendarBookingArray = [];
+
+          //Convert a Date into a formatted text for the calender to read
+          function dateConverter(date) {
+            //Make a temp date, from the input and make variables for day, month and year
+            let tempDate = new Date(date);
+            let day = tempDate.getDate();
+            let month = tempDate.getMonth() + 1;
+            let year = tempDate.getFullYear();
+
+            //Format month and day, to include a 0, if it's between 1 & 9, to make it a two digit number
+            let monthFormatted = (month < 10) ? `0${month}`:month;
+            let dayFormatted = (day < 10) ? `0${day}`:day;
+
+            //Format date to our calender format (Ex. 12-12-2023)
+            const formattedDate = `${year}-${monthFormatted}-${dayFormatted}`;
+            return formattedDate;
+          }
+
+          //Convert a Date into a formatted text for the database
+          async function bookingDateFormatter(bookingDate) {
+            //Make a temp date, from the input and make variables for day, month and year
+            let date = new Date(Number(bookingDate));
+            let year = Number(date.getFullYear());
+            let month = Number(date.getMonth())+1;
+            let day = Number(date.getDate());
+
+            //Format month and day, to include a 0, if it's between 1 & 9, to make it a two digit number
+            let monthFormatted = (month < 10) ? `0${month}`:month;
+            let dayFormatted = (day < 10) ? `0${day}`:day;
+
+            //Format date to our database format (Ex. 12122023)
+            let bookingDateFormatted = `${dayFormatted}${monthFormatted}${year}`;
+            return bookingDateFormatted;
+          }
+
+          //Convert a Date from the datepicker into a formatted text for the update button
+          function updateDateFormatter(bookingDate) {
+            //Make a temp date, from the input and make variables for day, month and year, hours, minutes, seconds
+            let date = new Date(bookingDate);
+            let year = Number(date.getFullYear());
+            let month = Number(date.getMonth())+1;
+            let day = Number(date.getDate());
+            let hours = Number(date.getHours());
+            let minutes = Number(date.getMinutes());
+            let seconds = "00";
+
+            //Format month, day, hours and minutes to include a 0, if it's between 1 & 9, to make it a two digit number
+            let monthFormatted = (month < 10) ? `0${month}`:month;
+            let dayFormatted = (day < 10) ? `0${day}`:day;
+            let hoursFormatted = (hours < 10) ? `0${hours}`:hours;
+            let minutesFormatted = (minutes < 10) ? `0${minutes}`:minutes;
+
+            //Format date to our database update function format (Ex. dd-mm-yyyy hh:mm:ss)
+            let bookingDateFormatted = `${dayFormatted}-${monthFormatted}-${year} ${hoursFormatted}:${minutesFormatted}:${seconds}`;
+            return bookingDateFormatted;
+          }
+
+          //Returns a booking in JSON format, form the express server
+          async function getBooking(bookingID) {
+            //Stringify bookingID to transport to express server
+            let jsonString = JSON.stringify({bookingid: bookingID});
+            //fetch to express server
+            try{
+              const response = await fetch("http://localhost:8000/getbooking", {
+                method: "POST",
+                body: jsonString,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+              });
+              //return the response to the calling function
+              return await response.text();
+            }
+            catch(e) {
+              console.log("Fejl " + e);
+            }
+          };
+
+          //Splits each object into an array for the objects attributes
+          function createDataAttributes() {
+            for(let ele of tempdata) {
+              tempAttributesArray.push(ele.split(", "));
+            }
+          }
+
+          //Call createDataAttributes to make our tempArray at load time
+          createDataAttributes();
+
+          //Makes a post request to express server
+          async function post(url, objekt) {
+            //fetch url and object express server
+            try {
+            const respons = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify(objekt),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }); 
+            //If the status is not 201 (confirmed), throw error
+            if (respons.status !== 201) // Created
+                throw new Error(respons.status);
+            return await respons.text();
+            }
+            catch(e) {
+              console.log("Fejl " + e);
+            }
+          }
+
+          //Function for confirm button on each waiting booking object
+          async function confirmButton(bookingDate, bookingFirstName, bookingLastName, index) {
+            let booked = false;
+            let occupiedBookingFound = true;
+            for(let element of calendarBookingArray){
+              //If element in our calenderArray has the same startdate as the bookingDate, and the element is approved
+              //display confirm prompt.
+              if(element.start == dateConverter(Number(bookingDate)) && element.backgroundColor == "green"){
+                occupiedBookingFound = true;
+                let input = confirm("Denne dato er allerede booket, er du sikker på du vil lave endnu en booking?");
+                if(input){
+                  //If confirmed, update bookingStatus
+                  try {
+                    await updateBookingStatus(bookingDate, bookingFirstName, bookingLastName, "confirmed");
+                    booked = true;
+                  }catch(e) {
+                    console.log("Fejl " + e);
+                  }
+                }
+                break;
+              }else {
+                occupiedBookingFound = false;
+              }
+            }
+            
+            //If the booking is not yet booked, and the date is not occupied, then update bookingStatus
+            if(!booked && !occupiedBookingFound){
+              try {
+                await updateBookingStatus(bookingDate, bookingFirstName, bookingLastName, "confirmed");
+                booked = true;
+              }catch(e) {
+                console.log("Fejl " + e);
+              }
+            }
+          }
+
+          //Function for deny button on each waiting booking object
+          async function denyButton(bookingDate, bookingFirstName, bookingLastName, index) {
+            try{
+            await updateBookingStatus(bookingDate, bookingFirstName, bookingLastName, "denied");
+            }
+            catch(e) {
+              console.log("Fejl " + e);
+            }
+          }
+
+          //Updates specific booking status given by BookingID and new status
+          async function updateBookingStatus (bookingDate, bookingFirstName, bookingLastName, bookingStatus) {
+            try {
+              await post('/updateBookingStatus', {bookingDate, bookingFirstName, bookingLastName, bookingStatus});
+              //Reload page once the update is done
+              location.reload();
+            }
+            catch (e) {
+              console.log("Fejl " + e);
+            }
+          }
+
+          //Reads specific booking given by BookingID
+          async function readSelectedBooking(bookingDate, bookingFirstName, bookingLastName) {
+            //Make a temp firt and last name to trim for any spaces, since bookingID is without spaces in the database
+            let tempFirstName = "";
+            let tempLastName = "";
+
+            let splittedFirstName = bookingFirstName.split(" ");
+            splittedFirstName.forEach(name => {
+                tempFirstName += name.trim();
+            });
+
+            let splittedLastName = bookingLastName.split(" ");
+            splittedLastName.forEach(name => {
+                tempLastName += name.trim();
+            });
+
+            //call bookingDateFormatter with the given date. Format the bookingID with the formatted date.
+            bookingDateFormatter(bookingDate).then(result => {
+              let bookingIDFormatted = `${result}${tempFirstName}${tempLastName}`;
+              //Get the booking by bookingID and set the eventInfo with the booking information for the user to read.
+              getBooking(bookingIDFormatted).then(result => {setEventInfo(result);});
+            });
+          }
+
+          //Deletes the specific booking given by BookingID
+          async function deleteBooking (bookingDate, bookingName, calledFrom) {
+            //Check if deleteBooking is called from UpdateBooking().
+            //If it is, do not display prompt. Otherwise display prompt
+            if(calledFrom !="Update"){
+              let input = confirm("Er du sikker?");
+              if(input){
+                try {
+                  await post('/deleteBooking', {bookingDate, bookingName});
+                  location.reload();
+                }
+                catch (e) {
+                  console.log("Fejl " + e);
+                }
+              }
+            }else{
+              try {
+                  await post('/deleteBooking', {bookingDate, bookingName});
+                  location.reload();
+                }
+                catch (e) {
+                  console.log("Fejl " + e);
+                }
+            }
+          }
+
+          //Deletes the last picked booking if any
+          async function deleteBookingFromDatabase(calledFrom) {
+            await deleteBooking(tempBookingDate, tempBookingName, calledFrom);
+          }
+
+          //Creates a new booking with the given values in the eventInfo
+          async function createBooking() {
+            let input = confirm("Er du sikker?");
+            if(input){
+              // Sets the field with info from pressed event
+              const status = document.querySelector("#status").value;
+              const firstName = document.querySelector("#firstName").value;
+              const lastName = document.querySelector("#lastName").value;
+              const phone = document.querySelector("#mobile").value;
+              const mail = document.querySelector("#email").value;
+              const classNr = document.querySelector("#classnr").value;
+              const education = document.querySelector("#education").value;
+              const participants = document.querySelector("#numberOfPeople").value;
+              const startdate = document.querySelector("#startTime").value;
+              const enddate = document.querySelector("#endTime").value;
+              const description = document.querySelector("#description").value;
+              const requests = document.querySelector("#special").value;
+              const miscellaneous = document.querySelector("#misc").value;
+              let start = updateDateFormatter(startdate);
+              let end = updateDateFormatter(enddate);
+
+              //updateBooking creates a new booking, if none with the same bookingID exists
+              try {
+                await post('/updateBooking', {status, firstName, lastName, phone, mail, classNr, education, participants, start, end, description, requests, miscellaneous});
+                location.reload();
+              }
+              catch (e) {
+                console.log("Fejl " + e);
+              }
+            }
+          }
+
+          //Update a booking with the given values in the eventInfo
+          async function updateBooking() {
+            let input = confirm("Er du sikker?");
+            if(input){
+              // Sets the field with info from pressed event
+              const status = document.querySelector("#status").value;
+              const firstName = document.querySelector("#firstName").value;
+              const lastName = document.querySelector("#lastName").value;
+              const phone = document.querySelector("#mobile").value;
+              const mail = document.querySelector("#email").value;
+              const classNr = document.querySelector("#classnr").value;
+              const education = document.querySelector("#education").value;
+              const participants = document.querySelector("#numberOfPeople").value;
+              const startdate = document.querySelector("#startTime").value;
+              const enddate = document.querySelector("#endTime").value;
+              const description = document.querySelector("#description").value;
+              const requests = document.querySelector("#special").value;
+              const miscellaneous = document.querySelector("#misc").value;
+              let start = updateDateFormatter(startdate);
+              let end = updateDateFormatter(enddate);
+
+              //Delete the old booking, and create a new one with a new bookingID to match the new variables.
+              try {
+                await deleteBookingFromDatabase("Update");
+                await post('/updateBooking', {status, firstName, lastName, phone, mail, classNr, education, participants, start, end, description, requests, miscellaneous});
+                location.reload();
+              }
+              catch (e) {
+                console.log("Fejl " + e);
+              }
+            }
+          }
+
+          //Blocks the last clicked date in the calender
+          async function blockDateFunc() {
+            let input = confirm("Er du sikker?");
+            if(input){
+              try {
+              await post('/blockDate', {blockDate});
+              location.reload();
+              }
+              catch (e) {
+                console.log("Fejl " + e);
+              }
+            }
+          }
+
+          //Save the last clicked booking in temp variables
+          function saveTempBookingID(bookingDate, name) {
+            tempBookingDate = bookingDate;
+            tempBookingName = name;
+          }
+
+          //Uses the object attributes to add bookings to an array, which is later used in the calendar
+          function getInitialCalendarEvents(){
+            let i = 0;
+            let eventBackgroundColor = "blue"; 
+            let eventTextColor = "black";
+            
+            //Get every booking object to read name and date, to fill calender with
+            for(let booking of tempdata){
+              let firstName = String(tempAttributesArray[i][1]);
+              let lastName = String(tempAttributesArray[i][2]);
+              let startDate = String(new Date(Number(tempAttributesArray[i][8]))).trim();
+              let endDate = String(new Date(Number(tempAttributesArray[i][9]))).trim();
+
+              let status = tempAttributesArray[i][0];
+
+              //Colors calender by status
+              if(status == "confirmed"){
+                eventBackgroundColor = "green";
+              }else if (status == "waiting"){
+                eventBackgroundColor = "yellow";
+              }else if(status == "denied"){
+                eventBackgroundColor = "red";
+              }else if(status == "blocked"){
+                eventBackgroundColor = "white";
+              }
+
+              //Push name, date and color to calenderBookingArray
+              calendarBookingArray.push({
+                title: firstName + " " + lastName, 
+                start: dateConverter(startDate), 
+                end: dateConverter(endDate), 
+                textColor: eventTextColor,
+                backgroundColor: eventBackgroundColor
+              });
+
+              i += 1;
+            }
+          }
+
+          //Sets the data from a comma-sep string in the eventInfo area
+          function setEventInfo(commaSepString){
+            console.log(commaSepString);
+            let resultSplitter = commaSepString.split(", ");
+
+            //Sets the field with info from pressed event
+            let startDate = new Date(Number(resultSplitter[8]));
+            let endDate = new Date(Number(resultSplitter[9]));
+
+            document.querySelector("#status").value = resultSplitter[0];
+            document.querySelector("#firstName").value = `${resultSplitter[1]}`;
+            document.querySelector("#lastName").value = `${resultSplitter[2]}`;
+            document.querySelector("#mobile").value = resultSplitter[3];
+            document.querySelector("#email").value = resultSplitter[4];
+            document.querySelector("#classnr").value = resultSplitter[5];
+            document.querySelector("#education").value = resultSplitter[6];
+            document.querySelector("#numberOfPeople").value = resultSplitter[7];
+            document.querySelector("#startTime").value = startDate.toISOString().slice(0, 16);
+            document.querySelector("#endTime").value = endDate.toISOString().slice(0, 16);
+            document.querySelector("#description").value = resultSplitter[10];
+            document.querySelector("#special").value = resultSplitter[11];
+            document.querySelector("#misc").value = resultSplitter[12];
+
+            //Splits name and merches to use in saveTempBookingID
+            let firstNameSplitter = String(resultSplitter[1]).split(" ");
+            let lastNameSplitter = String(resultSplitter[2]).split(" ");
+            let tempName = "";
+
+            firstNameSplitter.forEach(name => {
+              tempName += name.trim();
+            });
+            lastNameSplitter.forEach(name => {
+              tempName += name.trim();
+            });
+
+            saveTempBookingID(startDate,tempName);
+          }
+
+          //Loads the init bookings function at the same time as calendar
+          document.addEventListener('DOMContentLoaded', getInitialCalendarEvents());
+          
+          //EventListenser for calender
+          document.addEventListener('DOMContentLoaded', function() {
+              var calendarEl = document.getElementById('calendarContainer');
+              var calendar = new FullCalendar.Calendar(calendarEl, {
+                themeSystem: "bootstrap5",
+                initialView: 'dayGridMonth', 
+                selectable: true, 
+                unselectAuto: false,
+                firstDay: 1, 
+                weekends: true,
+                weekNumbers: true,
+                displayEventTime: false,
+                dayMaxEventRows: true,
+                dateClick: (info) => {
+                    //Promise that saves date on sessionStorage
+                    import('./Model/Controller/sessionStorage.mjs').then(module => module.setDate(info.dateStr));
+                    //Save last clicked date in global variable, to block date if wanted
+                    blockDate = info.date;
+                }, 
+                events: calendarBookingArray, 
+                eventClick: function(info) {
+                    let titleSplitter = String(info.event.title).split(" ");
+                    let tempName = "";
+
+                    titleSplitter.forEach(name => {
+                        tempName += name.trim();
+                    });
+
+                    //Set eventInfo with the last clicked booking info
+                    let bookingIDformatted = `${(new Date(info.event.start).getDate() < 10) ? "0" + new Date(info.event.start).getDate() : new Date(info.event.start).getDate()}${((new Date(info.event.start).getMonth() + 1) < 10) ? "0" + (new Date(info.event.start).getMonth() + 1) : (new Date(info.event.start).getMonth() + 1)}${new Date(info.event.start).getFullYear()}${tempName}`;
+                    getBooking(bookingIDformatted)
+                    .then(result => {
+                      setEventInfo(result);
+                    });
+                }
+              });
+              calendar.render();
+            });
+
+
+    body
+        H1 Administrator
+
+        div(id="bodyContainer")
+          div(id="bodyTopContainer")
+          
+            div(id="calendarContainer")
+            
+            div(id="allInfoContainer")
+              h2(id="bookingInfoTitle") Bookinginformation
+              
+              div(id="showEventInfoContainer")
+                div(id="showEventInfo")
+                    //- Make input fields for eventInfo
+                    label(target="status", style="margin-right: 1rem;") Status: 
+                    select(id='status')
+                      option(value='waiting') waiting 
+                      option(value='confirmed') confirmed 
+                      option(value='denied') denied 
+                      option(value='blocked') blocked 
+                    label(target="firstName", style="margin-right: 1rem;") Fornavn: 
+                    input(id="firstName", size=40)
+                    label(target="lastName", style="margin-right: 1rem;") Efternavn: 
+                    input(id="lastName", size=40)
+                    label(target="mobile", style="margin-right: 1rem;") Tlf: 
+                    input(id="mobile", size=40)
+                    label(target="email", style="margin-right: 1rem;") E-Mail: 
+                    input(id="email", size=40)
+                    label(target="classnr", style="margin-right: 1rem;") HoldNr:
+                    input(id="classnr", size=40)
+                    label(target="education", style="margin-right: 1rem;") Uddannelse: 
+                    input(id="education", size=40)
+                    label(target="numberOfPeople", style="margin-right: 1rem;") Antal Personer:
+                    input(id="numberOfPeople", size=40)
+                    label(target="startTime", style="margin-right: 1rem;") Starter: 
+                    input(type="datetime-local", id="startTime", size=40)
+                    label(target="endTime", style="margin-right: 1rem;") Slutter: 
+                    input(type="datetime-local", id="endTime", size=40)
+                    label(target="description", style="margin-right: 1rem;") Beskrivelse: 
+                    textarea(id="description", cols=39, rows=5, style="resize: none;")
+                    label(target="special", style="margin-right: 1rem;") Ønsker: 
+                    textarea(id="special", cols=39, rows=5, style="resize: none;")
+                    label(target="misc", style="margin-right: 1rem;") Diverse: 
+                    textarea(id="misc", cols=39, rows=5, style="resize: none;")
+
+          div(id="bodyBottomContainer")          
+
+            div(id="adminBookingsContainer")
+
+              div(id="adminBookingLeftContainer")
+
+                //- Create table for waiting bookings
+                table
+                  h3(class="tableHeader") Afventende bookinger
+                  - const today = new Date();
+                  - let waitingBookings = bookingObject.filter(user => new Date(user.start) >= today).sort((a,b) => new Date(a.start) - new Date(b.start)).slice(0,10);
+                  each user, index in waitingBookings
+                    tr
+                      if(user.status == "waiting")
+                        td
+                          //- Accept and Deny buttons for each waiting booking
+                          button(class="tableConfirmBtn", onclick=`confirmButton('${user.start}', '${user.firstName}', '${user.lastName}', '${index}')`) Godkend 
+                          button(class="tableConfirmBtn", onclick=`denyButton('${user.start}', '${user.firstName}', '${user.lastName}', '${index}')`) Afvis
+                        td(onclick=`readSelectedBooking('${user.start}', '${user.firstName}', '${user.lastName}')`) #{user.firstName} #{user.lastName}
+
+                //- Create table for confirmed bookings
+                table
+                  h3(class="tableHeader") Bekræftede bookinger
+                  - let confirmedBookings = bookingObject.filter(user => new Date(user.start) >= today).sort((a,b) => new Date(a.start) - new Date(b.start)).slice(0,10);
+                  each user, index in confirmedBookings
+                    tr
+                      if(user.status == "confirmed")
+                        td(onclick=`readSelectedBooking('${user.start}', '${user.firstName}', '${user.lastName}')`) #{user.firstName} #{user.lastName}
+
+              div(id="adminBookingRightContainer")
+
+                //- Create table for denied bookings
+                table
+                  h3(class="tableHeader") Afviste bookinger
+                  - let deniedBookings = bookingObject.filter(user => new Date(user.start) >= today).sort((a,b) => new Date(a.start) - new Date(b.start)).slice(0,10);
+                  each user, index in deniedBookings
+                    tr
+                      if(user.status == "denied")
+                        td(onclick=`readSelectedBooking('${user.start}', '${user.firstName}', '${user.lastName}')`) #{user.firstName} #{user.lastName}
+
+                //- Create table for blocked bookings
+                table 
+                  h3(class="tableHeader") Blokerede bookinger
+                  - let blockedBookings = bookingObject.filter(user => new Date(user.start) >= today).sort((a,b) => new Date(a.start) - new Date(b.start)).slice(0,10);
+                  each user, index in blockedBookings
+                    tr
+                      if(user.status == "blocked")
+                        td(onclick=`readSelectedBooking('${user.start}', '${user.firstName}', '${user.lastName}')`) #{user.firstName} #{user.lastName}
+
+              div(id="adminBookingButtons")
+                //- Buttons for update, create, delete and block bookings and dates
+                h3(class="tableHeader") Muligheder
+                button(onclick=`updateBooking()`, class="adminBtn") Update
+                button(onclick=`createBooking()`, class="adminBtn") Create
+                button(onclick=`deleteBookingFromDatabase()`, class="adminBtn") Delete
+                button(onclick=`blockDateFunc()`, class="adminBtn") Bloker
+
+
+    style.
+
+      :root{
+        --default-font: Big Shoulders Text, Arial; 
+      }
+
+      body{
+        background-image: url('./Basement_logo.png');
+        background-size: 15rem 10rem;
+        background-position: 99% 1%;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+        background-color: #0C002E;
+      }
+
+      label {
+        color: white;
+        font-size: 1.2em;
+        font-family: var(--default-font);
+      }
+
+      input{
+        margin-bottom: 0.2rem; 
+        border-style: solid; 
+        border-width: 0;
+        border-radius: 8px;
+      }
+
+      textarea{
+        margin-bottom: 0.2rem;
+        border-style: solid; 
+        border-width: 0;
+        border-radius: 8px;
+      }
+
+      /*Title for eventInfo*/
+      #bookingInfoTitle{
+        color: white;
+        font-family: var(--default-font);
+        align-self: center; 
+      }
+
+      #bodyContainer{
+        display: flex;
+        flex-wrap: nowrap; 
+        flex-direction: column;
+        align-items: space-between;
+      }
+
+      #bodyTopContainer{
+        display: flex; 
+        flex-direction: row; 
+        flex-wrap: nowrap; 
+      }
+
+      .tableConfirmBtn{
+        border-style: solid; 
+        border-width: 1px;
+        border-color: grey;
+        border-radius: 8px; 
+
+        background-color: white;
+        color: black;
+
+        margin-right: 0.3rem;
+      }
+
+      #bodyBottomContainer{
+        display: flex; 
+        width: 50vw;
+        margin-left: 5vw;
+      }
+
+      #allInfoContainer{
+        display: flex; 
+        flex-direction: column; 
+        flex-wrap: nowrap;
+        align-items: flex-end;
+      }
+
+      #adminBookingsContainer{
+        display: block; 
+        width: inherit;
+      }
+
+      #adminBookingsContainer{
+        display: flex; 
+        flex-direction: row; 
+        flex-wrap: nowrap;
+
+        margin-top: 1rem;
+      }
+
+      #adminBookingLeftContainer{
+        display: flex; 
+        flex-direction: column; 
+        flex-wrap: nowrap; 
+        align-items: space-between;
+
+        margin-right: 8rem;
+      }
+
+      #adminBookingRightContainer{
+        display: flex; 
+        flex-direction: column; 
+        flex-wrap: nowrap; 
+
+        margin-right: 2rem;
+      }
+
+      #adminBookingButtons{
+        display: flex; 
+        flex-direction: column; 
+        flex-wrap: nowrap; 
+
+        margin-left: auto;
+
+      }
+
+      #status{
+        font-size: 1.2rem !important;
+        border-style: solid; 
+        border-width: 0;
+        border-radius: 8px;
+      }
+
+      .adminBtn{
+        margin-bottom: 0.5rem;
+        font-family: var(--default-font);
+        font-size: 1.1rem;
+
+        border-style: solid; 
+        border-width: 1px;
+        border-color: grey;
+        border-radius: 8px; 
+
+        background-color: white;
+        color: black;
+      }
+
+      /*Title for pending, confirmed, and blocked*/
+      .tableHeader{
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+
+        font-size: 1.5rem;
+        color: yellow;
+        font-family: var(--default-font);
+        text-decoration: underline;
+      }
+
+      td{
+        font-family: var(--default-font);
+        font-size: 1.2rem;
+        color: white;
+      }
+
+      td select {
+        margin-left: 1rem;
+        font-family: var(--default-font);
+      }
+
+      /*Container to show info when event is pressed*/
+      #showEventInfoContainer{
+        display: flex; 
+        flex-direction: column; 
+        height: 30vh; 
+        width: 30vw; 
+
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        margin-left: 2rem; 
+        margin-right: 2rem; 
+        color: white;
+        font-family: var(--default-font);
+      }
+
+      #showEventInfo {
+        display: flex; 
+        flex-direction: column; 
+        flex-wrap: nowrap; 
+      }
+
+      #showEventInfo ul{
+        list-style-type: none;
+        padding: 0;
+        color: white;
+        font-family: var(--default-font);
+      }
+
+      /*Container for frontpage*/
+      #calendarContainer{
+        margin-left: 5vw;
+        width: 50vw; 
+        height: 70vh; 
+      }
+
+      /*Administrator header*/
+      h1{
+        background: -webkit-linear-gradient(#BF3C8E, #754B9C, #4B58A6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-family: var(--default-font);
+        font-size: 4rem;
+      }
+
+      /*Month Header*/
+      #fc-dom-1{
+        background: -webkit-linear-gradient(#BF3C8E, #754B9C, #4B58A6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: var(--default-font);
+        font-size: 30px; 
+      }
+
+      /*Day Header*/
+      .fc-col-header-cell-cushion{
+        color: White;
+        text-decoration: none;
+        font-family: var(--default-font);
+        font-size: 20px;
+      }
+
+      .fc-col-header-cell-cushion:hover{
+        color: white;
+      }
+
+      /*Day Number*/
+      .fc-daygrid-day-number{
+        color: white;
+        text-decoration: none;
+        font-family: var(--default-font);
+        font-size: 20px; 
+      }
+
+      .fc-daygrid-day-number:hover{
+        color: white;
+      }
+
+      /*Background color for individual day frames - need "!important"*/
+      .fc-daygrid-day{
+       /* background-color: #5A4C9D !important;*/
+      }
+
+      /*Background color for day name*/
+      .fc-col-header-cell.fc-day{
+        background-color: #754B9C;
+      }
+
+      /*Today indicator*/
+      .fc-day.fc-day-today.fc-daygrid-day{
+        text-decoration: underline;
+        background-color: transparent;
+        
+      }
+
+      /*Selected Date highlighter*/
+      .fc-highlight{
+        color: white;
+       /* background-color: #7B4696 !important;*/
+        border: 3px white;
+        border-style: solid;
+        /*background-image: linear-gradient(to right, #BF3C8E 0%, #4B58A6  51%, #754B9C  100%) !important;*/
+        transition: 0.5s;
+        background-size: 200% auto;
+      /*  box-shadow: 0 0 20px #AA4296;*/
+      }
+
+      /*Backbutton*/
+      button.fc-prev-button.fc-button.fc-button-primary{
+        color: white;
+        background-color: #7B4696;
+        border: 1px black;
+        border-radius: 12px;
+        background-image: linear-gradient(to right, #BF3C8E 0%, #4B58A6  51%, #754B9C  100%);
+        transition: 0.5s;
+        background-size: 200% auto;
+        box-shadow: 0 0 20px #AA4296;
+      }
+
+      button.fc-prev-button.fc-button.fc-button-primary:hover{
+        background-position: right center;
+        color: white;
+        text-decoration: none;
+      }
+
+      button.fc-prev-button.fc-button.fc-button-primary:active{
+        transform: scale(0.95); 
+        box-shadow: 3px 2px 22px 1px #0C002E;
+      }
+
+      /*Forward Button*/
+      button.fc-next-button.fc-button.fc-button-primary{
+        color: white;
+        background-color: #7B4696;
+        border: 1px black;
+        border-radius: 12px;
+        background-image: linear-gradient(to right, #754B9C 0%, #4B58A6 51%, #BF3C8E 100%);
+        transition: 0.5s;
+        background-size: 200% auto;
+        box-shadow: 0 0 20px #AA4296;
+      }
+
+      button.fc-next-button.fc-button.fc-button-primary:hover{
+        background-position: right center;
+        color: white;
+        text-decoration: none;
+      }
+
+      button.fc-next-button.fc-button.fc-button-primary:active{
+        transform: scale(0.95); 
+        box-shadow: 3px 2px 22px 1px #0C002E;
+      }
+
+
+      /*Today Button*/
+      button.fc-today-button.fc-button.fc-button-primary{
+        color: white;
+        background-color: #7B4696;
+        border: 1px black;
+        border-radius: 12px;
+        background-image: linear-gradient(to right, #BF3C8E 0%, #4B58A6  51%, #754B9C  100%);
+        transition: 0.5s;
+        background-size: 200% auto;
+        box-shadow: 0 0 20px #AA4296;
+        font-family: var(--default-font);
+        font-size: 1.1em;
+      }
+
+      button.fc-today-button.fc-button.fc-button-primary:hover{
+        background-position: right center;
+        color: white;
+        text-decoration: none;
+      }
+
+      button.fc-today-button.fc-button.fc-button-primary:active{
+       transform: scale(0.95); 
+       box-shadow: 3px 2px 22px 1px #0C002E;
+      }
+
+      .fc-daygrid-week-number{
+        font-size: 1.2rem;
+        font-family: var(--default-font);
+        filter: grayscale(1%);
+      }
+      
+      .fc .fc-daygrid-week-number {
+        color: white;
+        min-width: 1.5em;
+        padding: 2px;
+        position: absolute;
+        text-align: center;
+        top: 0px;
+        z-index: 5;  
+        background-color: rgba(255,255,255,0.0);
+      }

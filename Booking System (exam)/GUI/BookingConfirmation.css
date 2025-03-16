@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.titleContainer {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.title {
+    font-weight: bold;
+
+}
+
+#infoContainer {
+    width: 600px;
+
+
+}
+
+#infoContainer p {
+    display: inline;
+    margin: 0;
+}
