@@ -1,0 +1,13 @@
+{
+  "name": "hello-http-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC"
+}
