@@ -32,12 +32,13 @@ app.get("/", (req, res) => {
 
 // GET /messages - get all messages
 app.get("/messages", async (req, res) => {
-  const messages = await readMessages();
-  const messageFiltered = messages.filter(msg => msg.sender.toLowerCase().includes(req.query.search));
+  let messages = await readMessages();
 
-  console.log(messageFiltered);
-  if(messageFiltered.length > 0) res.json(messageFiltered);
-  else res.json(messages);
+  if(req.query.search) messages = messages.filter(msg => msg.text.toLowerCase().includes(req.query.search));
+  if(req.query.sender) messages = messages.filter(msg => msg.sender.toLowerCase().includes(req.query.sender));
+  
+  console.log(messages);
+  res.json(messages);
 });
 
 // GET /messages/:id - get message by id
