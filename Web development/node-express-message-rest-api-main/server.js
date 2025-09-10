@@ -33,7 +33,11 @@ app.get("/", (req, res) => {
 // GET /messages - get all messages
 app.get("/messages", async (req, res) => {
   const messages = await readMessages();
-  res.json(messages);
+  const messageFiltered = messages.filter(msg => msg.sender == req.query.search)
+
+  console.log(messageFiltered);
+  if(messageFiltered.length > 0) res.json(messageFiltered);
+  else res.json(messages);
 });
 
 // GET /messages/:id - get message by id
