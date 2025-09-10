@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 // GET /messages - get all messages
 app.get("/messages", async (req, res) => {
   const messages = await readMessages();
-  const messageFiltered = messages.filter(msg => msg.sender == req.query.search)
+  const messageFiltered = messages.filter(msg => msg.sender.toLowerCase().includes(req.query.search));
 
   console.log(messageFiltered);
   if(messageFiltered.length > 0) res.json(messageFiltered);
