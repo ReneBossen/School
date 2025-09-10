@@ -34,8 +34,15 @@ app.get("/", (req, res) => {
 app.get("/messages", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 3;
+  let messages = [];
 
-  let messages = await readMessages();
+  //Read messages with error handling
+  try { 
+    messages = await readMessages();
+  }
+  catch(error){
+    return res.status(500).json({ error: "Failed to read messages" });
+  }
 
   //Search text and sender
   if(req.query.search) messages = messages.filter(msg => msg.text.toLowerCase().includes(req.query.search));
@@ -61,16 +68,38 @@ app.get("/messages", async (req, res) => {
 
 // GET /messages/:id - get message by id
 app.get("/messages/:id", async (req, res) => {
-  const messages = await readMessages();
+  let messages = [];
+
+  try{
+    messages = await readMessages();
+  } catch(error){
+    return res.status(500).json({ error: "Failed to read messages" });
+  }
+
   const messageId = req.params.id;
+  
   const message = messages.find(message => message.id === messageId);
+  if (!message) {
+    return res.status(404).json({ error: "Message not found" });
+  }
+
   res.json(message);
 });
 
 // POST /messages - add new message
 app.post("/messages", async (req, res) => {
-  const messages = await readMessages();
+  let messages = [];
+  
+  try{
+    messages = await readMessages();
+  } catch(error){
+    return res.status(500).json({ error: "Failed to read messages" });
+  }
+
   const { text, sender } = req.body;
+  if (!text || !sender) {
+    return res.status(400).json({ error: "Text and sender are required" });
+  }
 
   const newMessage = {
     id: randomUUID(),
@@ -82,16 +111,30 @@ app.post("/messages", async (req, res) => {
   messages.push(newMessage);
   writeMessages(messages);
 
-  res.json(newMessage);
+  res.status(201).json(newMessage);
 });
 
 // PUT /messages/:id - update message
 app.put("/messages/:id", async (req, res) => {
-  const messages = await readMessages();
+  let messages = [];
+
+  try {
+    messages = await readMessages();
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to read messages" });
+  }
+
   const messageId = req.params.id;
   const message = messages.find(message => message.id === messageId);
+  if (!message) {
+    return res.status(404).json({ error: "Message not found" });
+  }
 
   const { text, sender } = req.body;
+  if (!text || !sender) {
+    return res.status(400).json({ error: "Text and sender are required" });
+  }
+
   message.text = text;
   message.sender = sender;
 
@@ -101,7 +144,14 @@ app.put("/messages/:id", async (req, res) => {
 
 // DELETE /messages/:id - delete message
 app.delete("/messages/:id", async (req, res) => {
-  let messages = await readMessages();
+  let messages = []
+
+  try{
+    messages = await readMessages();
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to read messages" });
+  }
+
   const messageId = req.params.id;
 
   messages = messages.filter(message => message.id !== messageId);

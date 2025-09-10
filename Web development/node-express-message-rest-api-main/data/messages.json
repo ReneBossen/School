@@ -34,5 +34,17 @@
     "date": "2025-09-03T09:18:10.000Z",
     "text": "Det var så lidt. Spørg endelig igen!",
     "sender": "chatbot"
+  },
+  {
+    "id": "5272df68-0017-4d81-90cd-0b0ef4a8a700",
+    "date": "2025-09-10T09:09:05.682Z",
+    "text": "Det var så lidt!",
+    "sender": "user"
+  },
+  {
+    "id": "041fd671-518b-4193-ab63-8cf5104660d3",
+    "date": "2025-09-10T09:10:23.598Z",
+    "text": "Dette er min test igen2",
+    "sender": "user"
   }
 ]
