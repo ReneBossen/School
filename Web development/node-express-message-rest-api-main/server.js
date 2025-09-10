@@ -34,10 +34,14 @@ app.get("/", (req, res) => {
 app.get("/messages", async (req, res) => {
   let messages = await readMessages();
 
+  console.log(req.query);
+
+  if(req.query.sort === "-date") messages = messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+  if(req.query.sort === "date") messages = messages.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   if(req.query.search) messages = messages.filter(msg => msg.text.toLowerCase().includes(req.query.search));
   if(req.query.sender) messages = messages.filter(msg => msg.sender.toLowerCase().includes(req.query.sender));
   
-  console.log(messages);
   res.json(messages);
 });
 
