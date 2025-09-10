@@ -32,17 +32,31 @@ app.get("/", (req, res) => {
 
 // GET /messages - get all messages
 app.get("/messages", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 3;
+
   let messages = await readMessages();
 
-  console.log(req.query);
-
-  if(req.query.sort === "-date") messages = messages.sort((a, b) => new Date(b.date) - new Date(a.date));
-  if(req.query.sort === "date") messages = messages.sort((a, b) => new Date(a.date) - new Date(b.date));
-
+  //Search text and sender
   if(req.query.search) messages = messages.filter(msg => msg.text.toLowerCase().includes(req.query.search));
   if(req.query.sender) messages = messages.filter(msg => msg.sender.toLowerCase().includes(req.query.sender));
   
-  res.json(messages);
+  const messageCount = messages.length;
+
+  //Sort date
+  if(req.query.sort === "-date") messages = messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+  else messages = messages.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  //Slice for pagination
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  messages = messages.slice(startIndex, endIndex);
+
+  res.json({
+    Messagecount: messageCount,
+    PageNumber: page,
+    MessagesPerPage: limit,
+    Messages: messages})
 });
 
 // GET /messages/:id - get message by id
